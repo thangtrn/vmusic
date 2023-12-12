@@ -96,14 +96,17 @@ const SearchList: React.FC<ISearchList> = () => {
                )}
                {history.map((text, index) => (
                   <li className="rounded line-clamp-1 cursor-pointer" key={index}>
-                     <div className="flex items-center px-[10px] py-2 hover:bg-alpha-color hover:text-purple-color">
+                     <Link
+                        to={`/search/all?query=${text}`}
+                        className="flex items-center px-[10px] py-2 hover:bg-alpha-color hover:text-purple-color"
+                     >
                         <span className="flex items-center mr-[10px] text-secondary">
                            <GoHistory />
                         </span>
                         <div className="text-sm font-normal whitespace-nowrap overflow-hidden text-ellipsis leading-[1.5]">
                            {text}
                         </div>
-                     </div>
+                     </Link>
                   </li>
                ))}
             </ul>
