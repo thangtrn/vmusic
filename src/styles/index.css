@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+button,
+input {
+   outline: none;
+}
+
+ul,
+li {
+   list-style: none;
+   outline: none;
+}
+section,
+a {
+   outline: none;
+}
+
+body *::-webkit-scrollbar {
+   width: 4px;
+}
+*::-webkit-scrollbar-thumb {
+   border-radius: 4px;
+   background-color: rgba(0, 0, 0, 0.2);
+}
+*::-webkit-scrollbar-track {
+   box-shadow: inset #fff;
+   border-radius: 4px;
+}
+
+/* Common */
+@layer utilities {
+   .f-center {
+      @apply flex items-center justify-center;
+   }
+
+   .fx-center {
+      @apply flex justify-center;
+   }
+   .fy-center {
+      @apply flex items-center;
+   }
+   .fx-between {
+      @apply flex items-center justify-between;
+   }
+
+   .toast-position {
+      @apply lg:bottom-[8em];
+   }
+}
+
+.is-top {
+   -webkit-text-stroke: 1.5px #32323d;
+}
+
+.is-top-1 {
+   -webkit-text-stroke: 1px #4a90e2;
+   opacity: 1;
+}
+.is-top-2 {
+   -webkit-text-stroke: 1px #50e3c2;
+   opacity: 1;
+}
+.is-top-3 {
+   -webkit-text-stroke: 1px #e35050;
+   opacity: 1;
+}

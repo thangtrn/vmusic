@@ -1,0 +1,26 @@
+:root {
+   --primary-color: #ffffff;
+   --secondary-color: #ffffff80;
+   --alpha-color: rgba(0, 0, 0, 0.05);
+   --purple-color: #ed2b91;
+   --overlay-color: rgba(0, 0, 0, 0.5);
+
+   --header-color: #ffffffcc;
+   --header-shadow-color: rgba(0, 0, 0, 0.08);
+
+   --sidebar-color: rgba(0, 0, 0, 0.05);
+   --sidebar-popup-color: #572f90;
+   --playingbar-color: var(--primary-color);
+
+   --search-color: #757575;
+   --navigation-color: #32323d;
+   --title-color: #32323d;
+   --subtitle-color: #00000099;
+
+   --border-color: #0000001a;
+   --hover-color: var(--purple-color);
+   --icon-hover-color: rgba(255, 255, 255, 0.3);
+
+   --progressbar-active: #8d22c3;
+   --progressbar-player: #0000001a;
+}
