@@ -1,3 +1,19 @@
 {
-   "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+   "rewrites": [
+      { "source": "/(.*)", "destination": "/" },
+      {
+         "rewrites": [
+            {
+               "source": "/api/:path*",
+               "destination": "http://ghostrider5024-001-site1.atempurl.com/api/:path*",
+               "has": [
+                  {
+                     "type": "host",
+                     "value": "vmusic-three.vercel.app"
+                  }
+               ]
+            }
+         ]
+      }
+   ]
 }
