@@ -8,7 +8,7 @@ interface ArtistHeroProps {
 
 const ArtistHero: React.FC<ArtistHeroProps> = ({ data }) => {
    return (
-      <div className="">
+      <div>
          <div className="w-full h-52 rounded-lg overflow-hidden">
             <img
                src="https://source.unsplash.com/random"

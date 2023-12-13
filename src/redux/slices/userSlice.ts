@@ -18,6 +18,7 @@ export interface IUserSlide extends IUser {
    playlists: IAlbum[];
    favorites: ISong[];
    loading: boolean;
+   updateLoading: boolean;
 }
 
 const initialState: IUserSlide = {
@@ -34,6 +35,7 @@ const initialState: IUserSlide = {
    playlists: [],
    favorites: [],
    loading: false,
+   updateLoading: false,
 };
 
 const userSlice = createSlice({
@@ -48,9 +50,11 @@ const userSlice = createSlice({
       builder
          .addCase(fetchPlaylistByUser.fulfilled, (state, action: PayloadAction<IAlbum[]>) => {
             state.playlists = action.payload;
+            state.loading = false;
          })
          .addCase(fetchFavorites.fulfilled, (state, action: PayloadAction<ISong[]>) => {
             state.favorites = action.payload;
+            state.loading = false;
          });
 
       builder.addCase(login.fulfilled, (state, action: PayloadAction<IUser>) => {
@@ -72,14 +76,46 @@ const userSlice = createSlice({
          state.loading = false;
       });
 
+      builder
+         .addCase(updateProfile.fulfilled, (state, action: PayloadAction<IUser>) => {
+            state.name = action.payload.name;
+            state.image = action.payload.image;
+            state.birthDay = action.payload.birthDay;
+            state.gender = action.payload.gender;
+
+            state.updateLoading = false;
+         })
+         .addCase(updateProfile.pending, (state) => {
+            state.updateLoading = true;
+         })
+         .addCase(updateProfile.rejected, (state) => {
+            state.updateLoading = false;
+         });
+
       // addMatcher using before addCase
       builder
-         .addMatcher(isAnyOf(login.pending, register.pending), (state) => {
-            state.loading = true;
-         })
-         .addMatcher(isAnyOf(login.rejected, register.rejected), (state) => {
-            state.loading = false;
-         });
+         .addMatcher(
+            isAnyOf(
+               login.pending,
+               register.pending,
+               fetchPlaylistByUser.pending,
+               fetchFavorites.pending,
+            ),
+            (state) => {
+               state.loading = true;
+            },
+         )
+         .addMatcher(
+            isAnyOf(
+               login.rejected,
+               register.rejected,
+               fetchPlaylistByUser.rejected,
+               fetchFavorites.rejected,
+            ),
+            (state) => {
+               state.loading = false;
+            },
+         );
    },
 });
 
@@ -187,6 +223,14 @@ export const unLikeSong = createAsyncThunk(
       const res = await musicApi.unLikeSong({ userId: state.user.id, songId });
       dispatch(fetchFavorites());
       return res.data.metadata;
+   },
+);
+
+export const updateProfile = createAsyncThunk(
+   'user/updateProfile',
+   async (payload: IProfileUpdate) => {
+      const res = await musicApi.updateProfile(payload);
+      return res?.data?.metadata;
    },
 );
 

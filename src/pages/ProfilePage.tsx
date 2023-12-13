@@ -10,9 +10,10 @@ import { isLoginSelector, userSelector } from '~/redux/selector';
 import { Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { TOAST_MESSAGE } from '~/utils';
+import { ProfileLoading } from '~/components/LoadingSkeleton';
 
 const ProfilePage: React.FC = () => {
-   const { birthDay, favorites, gender, image, name } = useSelector(userSelector);
+   const { birthDay, favorites, gender, image, name, loading } = useSelector(userSelector);
    const isLogin = useSelector(isLoginSelector);
 
    const { Portal, toggle, hide } = usePortal({ defaultShow: false });
@@ -20,6 +21,10 @@ const ProfilePage: React.FC = () => {
    if (!isLogin) {
       toast.warning(TOAST_MESSAGE.loginRequired);
       return <Navigate to="/" />;
+   }
+
+   if (loading) {
+      return <ProfileLoading />;
    }
 
    return (

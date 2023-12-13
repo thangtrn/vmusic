@@ -5,6 +5,7 @@ import { musicApi } from '~/axios';
 import { ArtistHero } from '~/components/Artist';
 import { Carousel } from '~/components/Carousel';
 import { Line } from '~/components/Commons';
+import { ArtistLoading } from '~/components/LoadingSkeleton';
 import { TableSearchSong } from '~/components/TableSong';
 import { appSelector } from '~/redux/selector';
 import { setEndLoading, setError, setStartLoading } from '~/redux/slices/appSlice';
@@ -35,8 +36,9 @@ const ArtistPage: React.FC = () => {
    }, []);
 
    if (artistData.length <= 0 || loading) {
-      return 'Loading...';
+      return <ArtistLoading />;
    }
+
    if (error) {
       return 'Error...';
    }

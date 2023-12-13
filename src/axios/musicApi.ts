@@ -174,6 +174,11 @@ const musicApi = {
    register: (payload: IRegister): Promise<AxiosResponse<IResponseData<IUser>>> => {
       return axiosInstance.put<IResponseData>(`/user/register`, payload);
    },
+
+   updateProfile: (payload: IProfileUpdate): Promise<AxiosResponse<IResponseData<IUser>>> => {
+      const { id, ...data } = payload;
+      return axiosInstance.put<IResponseData>(`/user/update/${id}`, data);
+   },
 };
 
 export default musicApi;

@@ -130,3 +130,11 @@ interface IRegister {
    birthDay: Date | string;
    onToggleForm?: () => void;
 }
+
+interface IProfileUpdate {
+   id: string;
+   name: string;
+   image: string;
+   gender: string;
+   birthDay: Date | string;
+}
