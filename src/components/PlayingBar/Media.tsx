@@ -28,30 +28,32 @@ const Media: React.FC = () => {
                   <Link to="/">{currentSong?.name}</Link>
                </Tippy>
             </h3>
-            {currentSong?.tag?.length <= 0 ? (
+            {currentSong?.tag?.toString().length <= 0 ? (
                <span className="text-xs leading-normal text-subtitle-color mt-[1px] line-clamp-1">
                   {currentSong?.description}
                </span>
             ) : (
                <span className="text-xs leading-normal italic text-subtitle-color mt-[1px] line-clamp-1">
-                  Bản quyền thuộc zing-mp3
+                  Bản quyền thuộc {currentSong?.id === 'ytb' ? 'Youtube' : 'Zing-mp3'}
                </span>
             )}
          </div>
 
-         <div className="fy-center ml-[10px]">
-            <Button className="mx-[2px] hover:bg-alpha-color" tippyContent="Thêm vào thư viện">
-               <Heart size={15} />
-            </Button>
-            <ContextMenu offsetBar setShowPopper={setShowPopper} songData={currentSong}>
-               <Button
-                  className={cx('mx-[2px] hover:bg-alpha-color', showPopper && 'bg-alpha-color')}
-                  tippyContent="Xem thêm"
-               >
-                  <More size={15} />
+         {currentSong?.id !== 'ytb' && (
+            <div className="fy-center ml-[10px]">
+               <Button className="mx-[2px] hover:bg-alpha-color" tippyContent="Thêm vào thư viện">
+                  <Heart size={15} />
                </Button>
-            </ContextMenu>
-         </div>
+               <ContextMenu offsetBar setShowPopper={setShowPopper} songData={currentSong}>
+                  <Button
+                     className={cx('mx-[2px] hover:bg-alpha-color', showPopper && 'bg-alpha-color')}
+                     tippyContent="Xem thêm"
+                  >
+                     <More size={15} />
+                  </Button>
+               </ContextMenu>
+            </div>
+         )}
       </div>
    );
 };

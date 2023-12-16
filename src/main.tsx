@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import 'regenerator-runtime';
 
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';

@@ -17,6 +17,7 @@ import {
    ProfilePage,
    TopDownloadPage,
    TopListenPage,
+   YoutubePage,
 } from '~/pages';
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
                <Route path="/playlist/:id" element={<PlaylistPage />} />
                <Route path="/artist/:id" element={<ArtistPage />} />
                <Route path="/profile" element={<ProfilePage />} />
+               <Route path="/youtube" element={<YoutubePage />} />
                <Route path="*" element={<HomePage />} />
             </Route>
          </Routes>

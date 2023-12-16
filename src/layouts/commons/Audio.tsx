@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { musicApi } from '~/axios';
 import { audioSelector, currentSongSelector, musicSelector } from '~/redux/selector';
 import { resetAudio, setCurrentTime, setDuration } from '~/redux/slices/audioSlice';
@@ -47,7 +48,8 @@ const Audio: React.FC = () => {
    };
 
    const handleError = () => {
-      dispatch(nextSong());
+      toast.error('Không tải được bài hát');
+      dispatch(setPlayPause());
    };
 
    // Binding audio

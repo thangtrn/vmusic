@@ -7,11 +7,20 @@ interface ButtonProps {
    className?: string;
    children?: React.ReactNode;
    onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+   onMouseDown?: (e: React.MouseEvent<HTMLElement>) => void;
+   onMouseUp?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
    (
-      { children, tippyContent, className, onClick = () => {} }: ButtonProps,
+      {
+         children,
+         tippyContent,
+         className,
+         onClick = () => {},
+         onMouseDown = () => {},
+         onMouseUp = () => {},
+      }: ButtonProps,
       ref: React.Ref<HTMLButtonElement>,
    ) => {
       let TippyComponent: any = React.Fragment;
@@ -31,6 +40,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             <button
                ref={ref}
                onClick={onClick}
+               onMouseDown={onMouseDown}
+               onMouseUp={onMouseUp}
                className={cx('f-center rounded-full w-8 h-8', className)}
             >
                {children}

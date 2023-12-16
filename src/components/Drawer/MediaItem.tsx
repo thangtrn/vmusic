@@ -109,23 +109,28 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, wasListened }) => {
             </span>
          </div>
          <div className="items-center ml-[10px] hidden group-hover/image:flex">
-            {isFavorite ? (
-               <Button
-                  onClick={hanldeUnLike}
-                  className="mx-[2px] hover:bg-alpha-color text-purple-color"
-                  tippyContent="Xoá khỏi thư viện"
-               >
-                  <Heart size={15} variant="Bold" />
-               </Button>
-            ) : (
-               <Button
-                  onClick={hanldeLike}
-                  className="mx-[2px] hover:bg-alpha-color"
-                  tippyContent="Thêm vào thư viện"
-               >
-                  <Heart size={15} />
-               </Button>
+            {currentSong?.id !== 'ytb' && (
+               <>
+                  {isFavorite ? (
+                     <Button
+                        onClick={hanldeUnLike}
+                        className="mx-[2px] hover:bg-alpha-color text-purple-color"
+                        tippyContent="Xoá khỏi thư viện"
+                     >
+                        <Heart size={15} variant="Bold" />
+                     </Button>
+                  ) : (
+                     <Button
+                        onClick={hanldeLike}
+                        className="mx-[2px] hover:bg-alpha-color"
+                        tippyContent="Thêm vào thư viện"
+                     >
+                        <Heart size={15} />
+                     </Button>
+                  )}
+               </>
             )}
+
             <Button className="mx-[2px] hover:bg-alpha-color" tippyContent="Khác">
                <More size={15} />
             </Button>

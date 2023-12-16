@@ -1,17 +1,18 @@
 import React from 'react';
-import { ArrowLeft, ArrowRight, Logout, Profile, Setting2 } from 'iconsax-react';
-import SearchBox from '../../components/SearchBox/SearchBox';
-import { Button, Line } from '~/components/Commons';
 import cx from 'classnames';
-import { useHistoryStack } from '~/hooks';
-import { Link, useNavigate } from 'react-router-dom';
 import Tippy from '@tippyjs/react/headless';
 import { useDispatch } from 'react-redux';
-import { logout } from '~/redux/slices/userSlice';
-import { useSelector } from 'react-redux';
-import { isLoginSelector, userSelector } from '~/redux/selector';
 import usePortal from 'react-cool-portal';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { useHistoryStack } from '~/hooks';
+import { isLoginSelector, userSelector } from '~/redux/selector';
+import { logout } from '~/redux/slices/userSlice';
+import { ArrowLeft, ArrowRight, Logout, Profile, Setting2 } from 'iconsax-react';
+import { Button, Line } from '~/components/Commons';
 import { AuthForm } from '~/components/Auth';
+import { SearchBox } from '../../components/SearchBox';
 
 interface HeaderProps {
    isSticky: boolean;

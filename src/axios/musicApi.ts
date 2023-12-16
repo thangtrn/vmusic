@@ -179,6 +179,10 @@ const musicApi = {
       const { id, ...data } = payload;
       return axiosInstance.put<IResponseData>(`/user/update/${id}`, data);
    },
+
+   fetchAudioFromYtb: (url: string): Promise<AxiosResponse<IResponseData<any>>> => {
+      return axiosInstance.get<IResponseData>(`/home/audio/youtube`, { params: { url } });
+   },
 };
 
 export default musicApi;

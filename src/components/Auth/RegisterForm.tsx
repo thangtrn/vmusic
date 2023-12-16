@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { userSelector } from '~/redux/selector';
@@ -112,6 +113,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ toggleForm }) => {
                disabled={loading}
                className="mt-5 inline-flex w-full items-center justify-center rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:border-red-600 disabled:bg-gray-400"
             >
+               {loading && (
+                  <div className="f-center cursor-pointer animate-spin mr-2">
+                     <AiOutlineLoading3Quarters size={16} />
+                  </div>
+               )}
                Đăng ký
             </button>
          </form>

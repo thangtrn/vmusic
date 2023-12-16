@@ -13,6 +13,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import SearchList from './SearchList';
 import { AppThunkDispatch } from '~/redux/store';
 import { setHistory } from '~/redux/slices/searchSlice';
+import VoiceSearch from './VoiceSearch';
 
 interface SearchBoxProps {}
 
@@ -45,47 +46,49 @@ const SearchBox: React.FC<SearchBoxProps> = () => {
    }, [debounceValue, dispatch]);
 
    return (
-      <div
-         ref={focusRef}
-         className={cx(
-            'relative max-w-[440px] w-full',
-            isFocus
-               ? 'bg-primary-color shadow-search-top rounded-t-[20px]'
-               : 'bg-alpha-color rounded-[20px]',
-         )}
-      >
-         <form className="flex h-10" onSubmit={handleSubmit}>
-            <button type="submit" className="w-10 f-center">
-               <SearchNormal1 size="20" />
-            </button>
-            <input
-               type="text"
-               value={value}
-               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  dispatch(setValue(e.target.value))
-               }
-               onFocus={() => setIsFocus(true)}
-               className="flex-1 py-[5px] text-sm bg-transparent font-normal text-search-color"
-               placeholder="Tìm kiếm bài hát, nghệ sĩ lời bài hát..."
-            />
-            {value.length > 0 && (
-               <>
-                  {loading === true ? (
-                     <div className="f-center h-10 w-10 cursor-pointer animate-spin">
-                        <AiOutlineLoading3Quarters size={16} />
-                     </div>
-                  ) : (
-                     <button
-                        onClick={() => dispatch(clearSearch())}
-                        className="f-center h-10 w-10 cursor-pointer"
-                     >
-                        <IoCloseOutline color="var(--text-placeholder)" size={20} />
-                     </button>
-                  )}
-               </>
+      <div ref={focusRef} className="relative flex w-full">
+         <div
+            className={cx(
+               'relative max-w-[440px] w-full',
+               isFocus
+                  ? 'bg-primary-color shadow-search-top rounded-t-[20px]'
+                  : 'bg-alpha-color rounded-[20px]',
             )}
-         </form>
-         {isFocus && <SearchList />}
+         >
+            <form className="flex h-10" onSubmit={handleSubmit}>
+               <button type="submit" className="w-10 f-center">
+                  <SearchNormal1 size="20" />
+               </button>
+               <input
+                  type="text"
+                  value={value}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                     dispatch(setValue(e.target.value))
+                  }
+                  onFocus={() => setIsFocus(true)}
+                  className="flex-1 py-[5px] text-sm bg-transparent font-normal text-search-color"
+                  placeholder="Tìm kiếm bài hát, nghệ sĩ lời bài hát..."
+               />
+               {value.length > 0 && (
+                  <>
+                     {loading === true ? (
+                        <div className="f-center h-10 w-10 cursor-pointer animate-spin">
+                           <AiOutlineLoading3Quarters size={16} />
+                        </div>
+                     ) : (
+                        <button
+                           onClick={() => dispatch(clearSearch())}
+                           className="f-center h-10 w-10 cursor-pointer"
+                        >
+                           <IoCloseOutline color="var(--text-placeholder)" size={20} />
+                        </button>
+                     )}
+                  </>
+               )}
+            </form>
+            {isFocus && <SearchList />}
+         </div>
+         <VoiceSearch setFocus={() => setIsFocus(true)} />
       </div>
    );
 };
