@@ -15,7 +15,7 @@ import {
 import { setPlayPause, setPlaySongWithId } from '~/redux/slices/musicSlice';
 import { likeSong, unLikeSong } from '~/redux/slices/userSlice';
 import { AppDispatch } from '~/redux/store';
-import { TOAST_MESSAGE } from '~/utils';
+import { TOAST_MESSAGE, YTB_TAG } from '~/utils';
 
 interface MediaItemProps {
    data: ISong;
@@ -109,7 +109,7 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, wasListened }) => {
             </span>
          </div>
          <div className="items-center ml-[10px] hidden group-hover/image:flex">
-            {currentSong?.id !== 'ytb' && (
+            {currentSong?.tag !== YTB_TAG && (
                <>
                   {isFavorite ? (
                      <Button

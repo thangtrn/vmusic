@@ -180,7 +180,7 @@ const musicApi = {
       return axiosInstance.put<IResponseData>(`/user/update/${id}`, data);
    },
 
-   fetchAudioFromYtb: (url: string): Promise<AxiosResponse<IResponseData<any>>> => {
+   fetchAudioFromYtb: (url: string): Promise<AxiosResponse<IResponseData<ISong>>> => {
       return axiosInstance.get<IResponseData>(`/home/audio/youtube`, { params: { url } });
    },
 };

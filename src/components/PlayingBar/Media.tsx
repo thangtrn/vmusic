@@ -8,6 +8,7 @@ import Tippy from '@tippyjs/react';
 import { Heart, More } from 'iconsax-react';
 import { Button, Image } from '../Commons';
 import { ContextMenu } from '../ContextMenu';
+import { YTB_TAG } from '~/utils';
 
 const Media: React.FC = () => {
    const currentSong = useSelector(currentSongSelector);
@@ -39,7 +40,7 @@ const Media: React.FC = () => {
             )}
          </div>
 
-         {currentSong?.id !== 'ytb' && (
+         {currentSong?.tag !== YTB_TAG && (
             <div className="fy-center ml-[10px]">
                <Button className="mx-[2px] hover:bg-alpha-color" tippyContent="Thêm vào thư viện">
                   <Heart size={15} />

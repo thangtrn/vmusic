@@ -5,6 +5,7 @@ import { musicApi } from '~/axios';
 import { audioSelector, currentSongSelector, musicSelector } from '~/redux/selector';
 import { resetAudio, setCurrentTime, setDuration } from '~/redux/slices/audioSlice';
 import { nextSong, setHistory, setLoading, setPlayPause } from '~/redux/slices/musicSlice';
+import { YTB_TAG } from '~/utils';
 
 const Audio: React.FC = () => {
    const audioRef = useRef<HTMLAudioElement>(null);
@@ -27,7 +28,9 @@ const Audio: React.FC = () => {
       dispatch(setHistory(currentSong));
 
       // update listening count
-      if (currentSong && currentSong?.id !== 'ytb') await musicApi.updateListens(currentSong?.id);
+      if (currentSong && currentSong?.tag !== YTB_TAG) {
+         await musicApi.updateListens(currentSong?.id);
+      }
    };
 
    const handleTimeUpdate = (e: React.SyntheticEvent<HTMLAudioElement, Event>) => {
@@ -64,6 +67,14 @@ const Audio: React.FC = () => {
       audioRef.current.volume = volume / 100;
    }, [volume]);
 
+   const renderSongUrl = (song: ISong) => {
+      if (song?.tag === YTB_TAG) return song.songUrl;
+      else if (song?.tag === null) {
+         return song?.songUrl;
+      }
+      return `http://api.mp3.zing.vn/api/streaming/audio/${song?.tag}/320`;
+   };
+
    return (
       <div className="hidden">
          <audio
@@ -74,11 +85,7 @@ const Audio: React.FC = () => {
             onLoadedMetadata={handleLoadedMetadata}
             onEnded={handleEnded}
             onError={handleError}
-            src={
-               currentSong?.tag === null
-                  ? currentSong?.songUrl
-                  : `http://api.mp3.zing.vn/api/streaming/audio/${currentSong?.tag}/320`
-            }
+            src={renderSongUrl(currentSong)}
             loop={isLoop}
          />
       </div>

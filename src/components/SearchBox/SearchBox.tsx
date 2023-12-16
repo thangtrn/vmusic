@@ -62,6 +62,7 @@ const SearchBox: React.FC<SearchBoxProps> = () => {
                <input
                   type="text"
                   value={value}
+                  spellCheck="false"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                      dispatch(setValue(e.target.value))
                   }

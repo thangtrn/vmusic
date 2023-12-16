@@ -8,9 +8,9 @@ import { GoHistory } from 'react-icons/go';
 import { useDispatch } from 'react-redux';
 import { clearHistory } from '~/redux/slices/searchSlice';
 
-interface ISearchList {}
+interface SearchListProps {}
 
-const SearchList: React.FC<ISearchList> = () => {
+const SearchList: React.FC<SearchListProps> = () => {
    const dispatch = useDispatch();
    const { result, history } = useSelector(searchSelector);
 

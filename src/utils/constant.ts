@@ -11,3 +11,5 @@ export const TOAST_MESSAGE = {
    likeSong: 'Đã thích bài hát',
    unlikeSong: 'Đã bỏ thích bài hát',
 };
+
+export const YTB_TAG = 'Youtube';

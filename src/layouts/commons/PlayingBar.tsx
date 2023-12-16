@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Action, Control, Media } from '~/components/PlayingBar';
 import { currentSongSelector, musicSelector } from '~/redux/selector';
+import { YTB_TAG } from '~/utils';
 
 const PlayingBar = () => {
    const navigate = useNavigate();
@@ -15,7 +16,7 @@ const PlayingBar = () => {
 
       if (playlistId) {
          navigate(`/album/${playlistId}`);
-      } else if (currentSong) {
+      } else if (currentSong && currentSong?.tag !== YTB_TAG) {
          navigate(`/song/${currentSong?.id}`);
       }
    };

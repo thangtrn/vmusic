@@ -1,104 +1,76 @@
 import { SearchNormal1 } from 'iconsax-react';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import cx from 'classnames';
 import { useDispatch } from 'react-redux';
-import { playIcon } from '~/assets';
-import { Button, Image } from '~/components/Commons';
-import { AppDispatch } from '~/redux/store';
-import { musicApi } from '~/axios';
-import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { youtubeSelector } from '~/redux/selector';
+import { useOutSide } from '~/hooks';
+import { setValueYtb, clearSearchYtb, fetchSearchYtb } from '~/redux/slices/youtubeSlice';
+import { AppThunkDispatch } from '~/redux/store';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import { setSingleSong } from '~/redux/slices/musicSlice';
+import { IoCloseOutline } from 'react-icons/io5';
+import { YtbSearchList } from '~/components/Youtube';
+import { toast } from 'react-toastify';
 
 const YoutubePage: React.FC = () => {
-   const dispatch = useDispatch<AppDispatch>();
+   const dispatch = useDispatch<AppThunkDispatch>();
+   const { value, loading } = useSelector(youtubeSelector);
 
-   const [pageLoading, setPageLoading] = useState<boolean>(false);
-   const [url, setUrl] = useState<string>('');
-   const [data, setData] = useState<any>(null);
+   const focusRef = useRef<HTMLDivElement>(null);
+   const [isFocus, setIsFocus] = useState<boolean>(false);
 
-   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+   useOutSide(focusRef, () => setIsFocus(false));
+
+   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (url.trim().length <= 0) {
-         return toast.warning('Vui lòng nhập link ytb');
+      if (value.trim().length <= 0) {
+         return toast.warning('Vui lòng nhập link youtube');
       }
-      try {
-         setPageLoading(true);
-         const res = await musicApi.fetchAudioFromYtb(url);
-         setData(res?.data?.metadata);
-         setPageLoading(false);
-      } catch (error) {
-         console.log(error);
-         setPageLoading(false);
-         toast.error('Không tìm thấy bài hát');
-      }
-   };
-
-   const handlePlay = (e: React.MouseEvent<HTMLElement>) => {
-      e.preventDefault();
-      dispatch(
-         setSingleSong({
-            id: 'ytb',
-            name: data?.audioInformation?.name || '',
-            image: data?.audioInformation?.image || '',
-            songUrl: data?.audioUrls[1]?.audioUrl || '',
-            tag: null,
-         } as ISong),
-      );
+      dispatch(fetchSearchYtb());
    };
 
    return (
       <div className="mt-10 max-w-3xl mx-auto">
-         <div className="w-full mb-3">
-            <form className="w-full flex gap-2" onSubmit={handleSubmit}>
+         <div
+            ref={focusRef}
+            className={cx(
+               'relative w-full shadow-search-top ',
+               isFocus ? 'bg-primary-color rounded-t-[20px]' : 'rounded-[20px]',
+            )}
+         >
+            <form className="flex h-10" onSubmit={handleSubmit}>
+               <button type="submit" className="w-10 f-center">
+                  <SearchNormal1 size="20" />
+               </button>
                <input
-                  value={url}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUrl(e.target.value)}
-                  name="youtube"
                   type="text"
-                  className="block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none"
+                  spellCheck="false"
+                  value={value}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                     dispatch(setValueYtb(e.target.value))
+                  }
+                  onFocus={() => setIsFocus(true)}
+                  className="flex-1 py-[5px] text-sm bg-transparent font-normal text-search-color"
                   placeholder="Nhập link youtube"
                />
-               <button
-                  type="submit"
-                  disabled={pageLoading}
-                  className="w-14 f-center rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none disabled:bg-gray-400"
-               >
-                  {pageLoading ? (
-                     <div className="f-center cursor-pointer animate-spin">
-                        <AiOutlineLoading3Quarters size={16} />
-                     </div>
-                  ) : (
-                     <SearchNormal1 size="16" />
-                  )}
-               </button>
+               {value.length > 0 && (
+                  <>
+                     {loading === true ? (
+                        <div className="f-center h-10 w-10 cursor-pointer animate-spin">
+                           <AiOutlineLoading3Quarters size={16} />
+                        </div>
+                     ) : (
+                        <button
+                           onClick={() => dispatch(clearSearchYtb())}
+                           className="f-center h-10 w-10 cursor-pointer"
+                        >
+                           <IoCloseOutline color="var(--text-placeholder)" size={20} />
+                        </button>
+                     )}
+                  </>
+               )}
             </form>
-         </div>
-         <div>
-            {data && (
-               <div className="fy-center px-[10px] py-2 group/image hover:bg-alpha-color rounded-md">
-                  <Image
-                     scale={false}
-                     className={cx('mr-[10px] w-[52px] h-[52px]')}
-                     src={data?.audioInformation?.image}
-                  >
-                     <Button
-                        onClick={handlePlay}
-                        className="w-10 h-10 f-center hover:brightness-90"
-                     >
-                        <img src={playIcon} alt="playIcon" className="w-full h-full object-cover" />
-                     </Button>
-                  </Image>
-                  <div className="flex-1">
-                     <h4 className="line-clamp-1 text-sm font-medium leading-normal">
-                        {data?.audioInformation?.name}
-                     </h4>
-                     <span className="line-clamp-1 text-subtitle-color text-xs mt-[3px] leading-normal">
-                        {data?.audioInformation?.artistNames}
-                     </span>
-                  </div>
-               </div>
-            )}
+            {isFocus && <YtbSearchList />}
          </div>
       </div>
    );

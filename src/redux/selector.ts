@@ -7,6 +7,7 @@ export const audioSelector = (state: RootState) => state.audio;
 export const musicSelector = (state: RootState) => state.music;
 export const searchSelector = (state: RootState) => state.search;
 export const userSelector = (state: RootState) => state.user;
+export const youtubeSelector = (state: RootState) => state.youtube;
 
 export const currentSongSelector = createSelector(
    (state: RootState) => state.music.currentIndex,
