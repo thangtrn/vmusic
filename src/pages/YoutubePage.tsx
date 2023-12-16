@@ -1,20 +1,17 @@
 import { SearchNormal1 } from 'iconsax-react';
 import React, { useState } from 'react';
 import cx from 'classnames';
-import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { LoadingIcon, musicWaveIcon, playIcon } from '~/assets';
+import { playIcon } from '~/assets';
 import { Button, Image } from '~/components/Commons';
-import { currentSongSelector, musicSelector } from '~/redux/selector';
 import { AppDispatch } from '~/redux/store';
 import { musicApi } from '~/axios';
 import { toast } from 'react-toastify';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import { setPlayPause, setSingleSong } from '~/redux/slices/musicSlice';
+import { setSingleSong } from '~/redux/slices/musicSlice';
 
 const YoutubePage: React.FC = () => {
    const dispatch = useDispatch<AppDispatch>();
-   const currentSong = useSelector(currentSongSelector);
 
    const [pageLoading, setPageLoading] = useState<boolean>(false);
    const [url, setUrl] = useState<string>('');
@@ -45,7 +42,7 @@ const YoutubePage: React.FC = () => {
             name: data?.audioInformation?.name || '',
             image: data?.audioInformation?.image || '',
             songUrl: data?.audioUrls[1]?.audioUrl || '',
-            tag: null,
+            tag: '',
          } as ISong),
       );
    };
