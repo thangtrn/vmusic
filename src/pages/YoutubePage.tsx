@@ -42,7 +42,7 @@ const YoutubePage: React.FC = () => {
             name: data?.audioInformation?.name || '',
             image: data?.audioInformation?.image || '',
             songUrl: data?.audioUrls[1]?.audioUrl || '',
-            tag: '',
+            tag: null,
          } as ISong),
       );
    };

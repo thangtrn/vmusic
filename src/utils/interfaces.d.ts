@@ -53,7 +53,7 @@ interface ISong {
    songUrl: string;
    songTime: number;
    createdAt: Data;
-   tag: string;
+   tag: string | null;
    artistNames: string;
    listens: number;
    comments: [];
