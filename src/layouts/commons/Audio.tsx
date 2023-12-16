@@ -27,7 +27,7 @@ const Audio: React.FC = () => {
       dispatch(setHistory(currentSong));
 
       // update listening count
-      if (currentSong && currentSong?.id === 'ytb') await musicApi.updateListens(currentSong?.id);
+      if (currentSong && currentSong?.id !== 'ytb') await musicApi.updateListens(currentSong?.id);
    };
 
    const handleTimeUpdate = (e: React.SyntheticEvent<HTMLAudioElement, Event>) => {
