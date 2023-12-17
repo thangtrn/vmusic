@@ -11,7 +11,7 @@ const TAGS: ITab[] = [
    },
    {
       id: 2,
-      label: 'Nghe gần đây',
+      label: 'Lịch sử nghe',
    },
 ];
 

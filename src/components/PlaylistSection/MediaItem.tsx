@@ -31,9 +31,10 @@ interface MediaItemProps {
    imageClasName?: string;
    className?: string;
    index?: number;
+   desc?: number;
 }
 
-const MediaItem: React.FC<MediaItemProps> = ({ data, albumData, index }) => {
+const MediaItem: React.FC<MediaItemProps> = ({ data, albumData, desc, index }) => {
    const dispatch = useDispatch<AppDispatch>();
    const { isPlaying, loading } = useSelector(musicSelector);
    const currentSong = useSelector(currentSongSelector);
@@ -127,7 +128,7 @@ const MediaItem: React.FC<MediaItemProps> = ({ data, albumData, index }) => {
             </div>
          </div>
          <h4 className="flex-1 line-clamp-1 text-xs leading-normal text-subtitle-color">
-            {data?.description}
+            {desc !== undefined ? desc : data?.description}
          </h4>
          {!showPopper && (
             <span className="group-hover/image:hidden text-subtitle-color text-xs w-11 f-center">

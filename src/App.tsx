@@ -18,6 +18,7 @@ import {
    TopDownloadPage,
    TopListenPage,
    YoutubePage,
+   TopFavorites,
 } from '~/pages';
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
                <Route path="/search/:slug" element={<SearchPage />} />
                <Route path="/top-download" element={<TopDownloadPage />} />
                <Route path="/top-listen" element={<TopListenPage />} />
+               <Route path="/top-favorite" element={<TopFavorites />} />
                <Route path="/album/:id" element={<AlbumPage />} />
                <Route path="/song/:id" element={<SongPage />} />
                <Route path="/library" element={<LibraryPage />} />

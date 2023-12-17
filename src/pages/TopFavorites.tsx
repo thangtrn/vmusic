@@ -10,7 +10,7 @@ import { RiPlayMiniFill } from 'react-icons/ri';
 import { setPlaylistSongs } from '~/redux/slices/musicSlice';
 import { SongRankingLoading } from '~/components/LoadingSkeleton';
 
-const TopDownloadPage: React.FC = () => {
+const TopFavorites: React.FC = () => {
    const dispatch = useDispatch();
    const { loading, error } = useSelector(appSelector);
    const [songs, setSongs] = useState<ISong[]>([]);
@@ -19,7 +19,7 @@ const TopDownloadPage: React.FC = () => {
       const fetchTopDownload = async () => {
          try {
             dispatch(setStartLoading());
-            const res = await musicApi.fetchTopDownload(1, 100);
+            const res = await musicApi.fetchTopFavorites(1, 100);
             setSongs(res?.data?.metadata);
             dispatch(setEndLoading());
          } catch (error) {
@@ -47,10 +47,12 @@ const TopDownloadPage: React.FC = () => {
       return 'Error...';
    }
 
+   console.log(songs);
+
    return (
       <div>
          <h1 className="fy-center text-4xl leading-normal font-bold mt-2">
-            BXH lượt tải về
+            BXH lượt yêu thích
             <button
                onClick={handlePlayAll}
                className="rounded-full w-10 h-10 f-center bg-primary-color shadow-button ml-3"
@@ -66,7 +68,7 @@ const TopDownloadPage: React.FC = () => {
                   <span className="ml-[10px]">Bài hát</span>
                </h3>
                <div className="flex-1">
-                  <span>Lượt tải về</span>
+                  <span>Yêu thích</span>
                </div>
                <div>
                   <span className="text-right">Thời gian</span>
@@ -75,7 +77,7 @@ const TopDownloadPage: React.FC = () => {
             {/* listSong */}
             <div>
                {songs?.map((song, index) => (
-                  <MediaItem data={song} desc={song?.downloads} key={song?.id} index={index + 1} />
+                  <MediaItem data={song} desc={song?.favorites} key={song.id} index={index + 1} />
                ))}
             </div>
          </div>
@@ -83,4 +85,4 @@ const TopDownloadPage: React.FC = () => {
    );
 };
 
-export default TopDownloadPage;
+export default TopFavorites;

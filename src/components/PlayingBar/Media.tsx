@@ -35,7 +35,7 @@ const Media: React.FC = () => {
                </span>
             ) : (
                <span className="text-xs leading-normal italic text-subtitle-color mt-[1px] line-clamp-1">
-                  Bản quyền thuộc {currentSong?.id === 'ytb' ? 'Youtube' : 'Zing-mp3'}
+                  Bản quyền thuộc {currentSong?.tag === YTB_TAG ? 'Youtube' : 'Zing-mp3'}
                </span>
             )}
          </div>

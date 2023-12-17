@@ -57,6 +57,9 @@ interface ISong {
    artistNames: string;
    listens: number;
    comments: [];
+   favorites: number;
+   listens: number;
+   downloads: number;
 }
 
 // artist type

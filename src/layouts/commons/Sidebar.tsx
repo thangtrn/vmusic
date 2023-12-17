@@ -42,6 +42,9 @@ const Sidebar: React.FC = () => {
                <NavItem to="/top-listen" Icon={Home}>
                   Bảng xếp hạng
                </NavItem>
+               <NavItem to="/top-favorite" Icon={Home}>
+                  Yêu thích
+               </NavItem>
                <NavItem to="/youtube" Icon={Home}>
                   Youtube
                </NavItem>

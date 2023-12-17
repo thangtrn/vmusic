@@ -8,4 +8,5 @@ export { default as ArtistPage } from '~/pages/ArtistPage';
 export { default as ProfilePage } from '~/pages/ProfilePage';
 export { default as TopDownloadPage } from '~/pages/TopDownloadPage';
 export { default as TopListenPage } from '~/pages/TopListenPage';
+export { default as TopFavorites } from '~/pages/TopFavorites';
 export { default as YoutubePage } from '~/pages/YoutubePage';

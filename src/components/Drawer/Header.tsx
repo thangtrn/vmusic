@@ -35,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({ tabs, activeTab, setActiveTab }) => {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={cx(
-                     'relative f-center flex-grow flex-shrink-0 py-[5px] rounded-full',
+                     'relative f-center flex-grow flex-shrink-0 py-[5px] rounded-full flex-1',
                      activeTab === tab.id
                         ? 'text-progressbar-active font-medium'
                         : 'text-navigation-color hover:text-progressbar-active font-normal',

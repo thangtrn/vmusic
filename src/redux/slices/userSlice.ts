@@ -43,6 +43,7 @@ const userSlice = createSlice({
    initialState,
    reducers: {
       logout: () => {
+         toast.success(TOAST_MESSAGE.logoutSuccess);
          return initialState;
       },
    },

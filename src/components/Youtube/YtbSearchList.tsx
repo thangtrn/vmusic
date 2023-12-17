@@ -10,12 +10,12 @@ interface YtbSearchListProps {}
 
 const YtbSearchList: React.FC<YtbSearchListProps> = () => {
    const dispatch = useDispatch();
-   const { result, history } = useSelector(youtubeSelector);
+   const { result, history, value } = useSelector(youtubeSelector);
 
    return (
       <div className="absolute bg-primary-color inset-x-0 top-full shadow-search-bottom rounded-b-[20px] py-3 px-[10px]">
-         <div className="overflow-y-auto max-h-search-list">
-            {result && (
+         <div className="overflow-y-auto max-h-[calc(100vh-280px)]">
+            {value.length > 0 && (
                <>
                   <ul>
                      <div className="fx-between text-sm px-[10px] pb-2">

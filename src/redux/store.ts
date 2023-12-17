@@ -8,6 +8,7 @@ import {
    youtubeReducer,
 } from './slices';
 import storage from 'redux-persist/lib/storage';
+import storageSession from 'redux-persist/lib/storage/session';
 import { persistReducer, persistStore } from 'redux-persist';
 
 const userPersistConfig = {
@@ -25,13 +26,25 @@ const musicPersistConfig = {
 const audioPersistConfig = {
    key: 'audio',
    storage,
-   blacklist: ['isSeek, currentTime'],
+   blacklist: ['isSeek', 'currentTime'],
+};
+
+const searchPersistConfig = {
+   key: 'search',
+   storage: storageSession,
+   blacklist: ['loading', 'value', 'result'],
+};
+
+const youtubePersistConfig = {
+   key: 'youtube',
+   storage: storageSession,
+   blacklist: ['loading', 'value', 'result'],
 };
 
 const rootReducer = combineReducers({
    app: appReducer,
-   search: searchReducer,
-   youtube: youtubeReducer,
+   search: persistReducer(searchPersistConfig, searchReducer),
+   youtube: persistReducer(youtubePersistConfig, youtubeReducer),
    user: persistReducer(userPersistConfig, userReducer),
    audio: persistReducer(audioPersistConfig, audioReducer),
    music: persistReducer(musicPersistConfig, musicReducer),

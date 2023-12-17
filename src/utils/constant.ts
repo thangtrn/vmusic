@@ -7,6 +7,9 @@ export const TOAST_MESSAGE = {
    registerSuccess: 'Đăng ký thành công',
    registerFail: 'Tài khoản đã tồn tại',
 
+   // logout
+   logoutSuccess: 'Đăng xuất thành công',
+
    // like/unlike
    likeSong: 'Đã thích bài hát',
    unlikeSong: 'Đã bỏ thích bài hát',

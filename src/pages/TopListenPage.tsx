@@ -19,7 +19,7 @@ const TopListenPage: React.FC = () => {
       const fetchTopDownload = async () => {
          try {
             dispatch(setStartLoading());
-            const res = await musicApi.fetchTopListens();
+            const res = await musicApi.fetchTopListens(1, 100);
             setSongs(res?.data?.metadata);
             dispatch(setEndLoading());
          } catch (error) {
@@ -66,7 +66,7 @@ const TopListenPage: React.FC = () => {
                   <span className="ml-[10px]">Bài hát</span>
                </h3>
                <div className="flex-1">
-                  <span>Mô tả</span>
+                  <span>Lượt nghe</span>
                </div>
                <div>
                   <span className="text-right">Thời gian</span>
@@ -75,7 +75,7 @@ const TopListenPage: React.FC = () => {
             {/* listSong */}
             <div>
                {songs?.map((song, index) => (
-                  <MediaItem data={song} key={song.id} index={index + 1} />
+                  <MediaItem data={song} desc={song?.listens} key={song.id} index={index + 1} />
                ))}
             </div>
          </div>

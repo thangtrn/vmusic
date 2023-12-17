@@ -76,6 +76,15 @@ const SongHeader: React.FC<AlbumCardProps> = ({ data }) => {
                   <span className="text-subtitle-color text-xs leading-[1.75]">
                      {data?.artistNames || data?.description}
                   </span>
+                  <div className="text-subtitle-color text-xs leading-[1.75]">
+                     Lượt nghe: {data?.listens} luợt
+                  </div>
+                  <div className="text-subtitle-color text-xs leading-[1.75]">
+                     Lượt tải về: {data?.favorites} luợt
+                  </div>
+                  <div className="text-subtitle-color text-xs leading-[1.75]">
+                     Lượt download: {data?.downloads} luợt
+                  </div>
                </div>
                <div className="mt-4 f-center">
                   <button

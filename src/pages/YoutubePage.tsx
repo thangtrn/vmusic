@@ -30,7 +30,7 @@ const YoutubePage: React.FC = () => {
    };
 
    return (
-      <div className="mt-10 max-w-3xl mx-auto">
+      <div className="mt-10 pb-10 max-w-3xl mx-auto">
          <div
             ref={focusRef}
             className={cx(

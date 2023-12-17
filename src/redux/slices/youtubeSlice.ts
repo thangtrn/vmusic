@@ -33,6 +33,10 @@ const youtubeSlice = createSlice({
          state.value = '';
          state.result = null;
       },
+      removeSongYtb: (state, action: PayloadAction<string>) => {
+         const foundIdx = state.history.findIndex((el) => el.id === action.payload);
+         state.history.splice(foundIdx, 1);
+      },
       clearHistoryYtb: (state) => {
          state.history = [];
       },
@@ -62,6 +66,6 @@ export const fetchSearchYtb = createAsyncThunk(
    },
 );
 
-export const { setValueYtb, clearSearchYtb, clearHistoryYtb } = youtubeSlice.actions;
+export const { setValueYtb, clearSearchYtb, clearHistoryYtb, removeSongYtb } = youtubeSlice.actions;
 
 export default youtubeSlice.reducer;

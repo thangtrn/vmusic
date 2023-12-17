@@ -159,6 +159,17 @@ const musicApi = {
          },
       });
    },
+   fetchTopFavorites: (
+      pageNumber?: number,
+      pageSize?: number,
+   ): Promise<AxiosResponse<IResponseData<ISong[]>>> => {
+      return axiosInstance.get<IResponseData>(`/song/top-favorites`, {
+         params: {
+            pageNumber: pageNumber || -1,
+            pageSize: pageSize || -1,
+         },
+      });
+   },
 
    updateListens: (songId: string): Promise<AxiosResponse<IResponseData<ISong>>> => {
       return axiosInstance.put<IResponseData>(`/song/listens/${songId}`);
