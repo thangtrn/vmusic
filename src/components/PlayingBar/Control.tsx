@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import cx from 'classnames';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,7 +15,7 @@ import InputRange from './InputRange';
 import { Button } from '../Commons';
 import { durationTime, percentToSecond, secondToPercent } from '~/helpers';
 
-const Control: React.FC = () => {
+const Control: React.FC = memo(() => {
    const dispatch = useDispatch();
    const audioRef = useRef<HTMLAudioElement | any>(null);
    const { currentTime, duration } = useSelector(audioSelector);
@@ -110,6 +110,6 @@ const Control: React.FC = () => {
          </div>
       </div>
    );
-};
+});
 
 export default Control;

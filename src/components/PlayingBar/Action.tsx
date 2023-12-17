@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import cx from 'classnames';
 import usePortal from 'react-cool-portal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,14 +10,20 @@ import { Button } from '../Commons';
 import { Microphone2, VolumeHigh, VolumeCross, MusicFilter, Message } from 'iconsax-react';
 import { CommentModal } from '../Comment';
 import { useLocation } from 'react-router-dom';
+import { LyricModal } from '../Lyric';
 
-const Action: React.FC = () => {
+const Action: React.FC = memo(() => {
    const location = useLocation();
    const dispatch = useDispatch();
    const { showPlaylist } = useSelector(musicSelector);
    const { volume } = useSelector(audioSelector);
 
    const { Portal, toggle, hide } = usePortal({ defaultShow: false });
+   const {
+      Portal: LyricPortal,
+      toggle: lyricToggle,
+      hide: lyricHide,
+   } = usePortal({ defaultShow: false });
 
    const handleChangeVolume = (values: number) => {
       const volumeValue = Math.floor(values);
@@ -50,9 +56,17 @@ const Action: React.FC = () => {
                </>
             )}
 
-            <Button tippyContent="Xem lời bài hát" className="mx-[2px] hover:bg-alpha-color">
+            <Button
+               onClick={lyricToggle}
+               tippyContent="Xem lời bài hát"
+               className="mx-[2px] hover:bg-alpha-color"
+            >
                <Microphone2 size={16} />
             </Button>
+
+            <LyricPortal>
+               <LyricModal hide={lyricHide} />
+            </LyricPortal>
 
             <div className="fy-center group">
                <Button
@@ -88,6 +102,6 @@ const Action: React.FC = () => {
          </div>
       </div>
    );
-};
+});
 
 export default Action;

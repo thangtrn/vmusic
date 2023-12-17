@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { musicApi } from '~/axios';
+import { renderSongUrl } from '~/helpers';
 import { audioSelector, currentSongSelector, musicSelector } from '~/redux/selector';
 import { resetAudio, setCurrentTime, setDuration } from '~/redux/slices/audioSlice';
 import { nextSong, setHistory, setLoading, setPlayPause } from '~/redux/slices/musicSlice';
@@ -66,14 +67,6 @@ const Audio: React.FC = () => {
       if (!audioRef || !audioRef.current) return;
       audioRef.current.volume = volume / 100;
    }, [volume]);
-
-   const renderSongUrl = (song: ISong) => {
-      if (song?.tag === YTB_TAG) return song.songUrl;
-      else if (song?.tag === null) {
-         return song?.songUrl;
-      }
-      return `http://api.mp3.zing.vn/api/streaming/audio/${song?.tag}/320`;
-   };
 
    return (
       <div className="hidden">

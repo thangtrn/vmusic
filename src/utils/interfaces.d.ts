@@ -60,6 +60,7 @@ interface ISong {
    favorites: number;
    listens: number;
    downloads: number;
+   lyric: string;
 }
 
 // artist type

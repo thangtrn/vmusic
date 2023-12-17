@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { BsDownload } from 'react-icons/bs';
 import { IoIosShareAlt } from 'react-icons/io';
 import { TbPlaylistAdd } from 'react-icons/tb';
-import { replaceAll } from '~/helpers';
+import { renderSongUrl, replaceAll } from '~/helpers';
 import SubContextMenu from './SubContextMenu';
 import { Trash } from 'iconsax-react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -42,7 +42,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
    };
 
    const downloadFile = async () => {
-      const url = `http://api.mp3.zing.vn/api/streaming/audio/${songData?.tag}/320`;
+      const url = renderSongUrl(songData);
       const link = document.createElement('a');
       link.href = url;
       link.target = '_blank';

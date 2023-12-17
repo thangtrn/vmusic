@@ -4,3 +4,4 @@ export * from './replaceAll';
 export * from './convertDateTime';
 export * from './shuffleArray';
 export * from './getListSongId';
+export * from './renderSongUrl';
