@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { musicApi } from '~/axios';
-import { AlbumLoading } from '~/components/LoadingSkeleton';
+import { AlbumLoading, NotFound } from '~/components/LoadingSkeleton';
 import { PlaylistHeader, PlaylistMain } from '~/components/PlaylistSection';
 import { appSelector } from '~/redux/selector';
 import { setEndLoading, setError, setStartLoading } from '~/redux/slices/appSlice';
@@ -20,6 +20,12 @@ const PlaylistPage: React.FC = () => {
          try {
             dispatch(setStartLoading());
             const res = await musicApi.fetchPlaylistById(id!);
+
+            if (!res.data?.metadata) {
+               dispatch(setError());
+               return;
+            }
+
             setAlbumData(res.data?.metadata);
             dispatch(setEndLoading());
          } catch (error) {
@@ -31,11 +37,11 @@ const PlaylistPage: React.FC = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [id]);
 
-   if (!albumData || loading) {
+   if (loading) {
       return <AlbumLoading />;
    }
    if (error) {
-      return 'Error...';
+      return <NotFound />;
    }
 
    return (

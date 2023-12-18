@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { musicApi } from '~/axios';
 import { Carousel } from '~/components/Carousel';
-import { AlbumLoading } from '~/components/LoadingSkeleton';
+import { AlbumLoading, NotFound } from '~/components/LoadingSkeleton';
 import { PlaylistHeader, PlaylistMain } from '~/components/PlaylistSection';
 import { appSelector } from '~/redux/selector';
 import { setEndLoading, setError, setStartLoading } from '~/redux/slices/appSlice';
@@ -22,7 +22,14 @@ const AlbumPage: React.FC = () => {
          try {
             dispatch(setStartLoading());
             const resAlbum = await musicApi.fetchAlbumById(id!);
+
+            if (!resAlbum.data?.metadata) {
+               dispatch(setError());
+               return;
+            }
+
             const resSuggestion = await musicApi.fetchAlbumSuggestion(id!);
+
             setAlbumData(resAlbum.data?.metadata);
             setSuggestionData(resSuggestion.data?.metadata);
             dispatch(setEndLoading());
@@ -35,11 +42,11 @@ const AlbumPage: React.FC = () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [id]);
 
-   if (!albumData || loading) {
+   if (loading) {
       return <AlbumLoading />;
    }
    if (error) {
-      return 'Error...';
+      return <NotFound />;
    }
 
    return (

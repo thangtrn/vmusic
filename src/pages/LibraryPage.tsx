@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 import { TOAST_MESSAGE } from '~/utils';
 import { RiPlayMiniFill } from 'react-icons/ri';
 import { setPlaylistSongs } from '~/redux/slices/musicSlice';
-import { LibraryLoading } from '~/components/LoadingSkeleton';
+import { Error, LibraryLoading } from '~/components/LoadingSkeleton';
 
 const LibraryPage: React.FC = () => {
    const dispatch = useDispatch<AppDispatch>();
@@ -59,7 +59,7 @@ const LibraryPage: React.FC = () => {
       return <LibraryLoading />;
    }
    if (error) {
-      return 'Error...';
+      return <Error onClick={() => fetchPlaylistData()} />;
    }
 
    return (

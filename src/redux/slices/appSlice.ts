@@ -29,6 +29,10 @@ const appSlice = createSlice({
          state.loading = false;
          state.error = true;
       },
+      clearError: (state) => {
+         state.loading = false;
+         state.error = false;
+      },
    },
    extraReducers: (builder) => {
       builder
@@ -53,6 +57,6 @@ export const fetchHome = createAsyncThunk('music/fetchHome', async () => {
    return res.data?.metadata;
 });
 
-export const { setStartLoading, setEndLoading, setError } = appSlice.actions;
+export const { setStartLoading, setEndLoading, setError, clearError } = appSlice.actions;
 
 export default appSlice.reducer;

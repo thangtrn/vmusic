@@ -3,5 +3,5 @@ export const resizeImage = (
    pattern: string = 'w165_r1x1_jpeg',
    replacement: string = 'w600_r1x1_jpeg',
 ): string => {
-   return url.replace(pattern, replacement);
+   return url?.replace(pattern, replacement) || '';
 };

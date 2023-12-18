@@ -26,7 +26,7 @@ const PlaylistHeader: React.FC<AlbumCardProps> = ({ data }) => {
 
    const handlePlay = (e: React.MouseEvent<HTMLElement>) => {
       e.preventDefault();
-      if (data.songs.length <= 0) return;
+      if (data?.songs?.length <= 0) return;
       if (isLoadingSong) return;
       if (id === playlistId) dispatch(setPlayPause());
       else dispatch(setPlaylistSongs(data));

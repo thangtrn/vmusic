@@ -11,7 +11,7 @@ import { setEndLoading, setError, setStartLoading } from '~/redux/slices/appSlic
 
 const SearchPage: React.FC = () => {
    const dispatch = useDispatch();
-   const { loading, error } = useSelector(appSelector);
+   const { loading } = useSelector(appSelector);
 
    const location = useLocation();
    const searchQuery = new URLSearchParams(location.search).get('query');
@@ -37,9 +37,6 @@ const SearchPage: React.FC = () => {
 
    if (loading) {
       return <SearchLoading />;
-   }
-   if (error) {
-      return 'Error...';
    }
 
    return (

@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { musicApi } from '~/axios';
 import { ArtistHero } from '~/components/Artist';
 import { Carousel } from '~/components/Carousel';
 import { Line } from '~/components/Commons';
-import { ArtistLoading } from '~/components/LoadingSkeleton';
+import { ArtistLoading, NotFound } from '~/components/LoadingSkeleton';
 import { TableSearchSong } from '~/components/TableSong';
 import { appSelector } from '~/redux/selector';
 import { setEndLoading, setError, setStartLoading } from '~/redux/slices/appSlice';
 
 const ArtistPage: React.FC = () => {
-   const navigate = useNavigate();
    const { id } = useParams();
 
    const dispatch = useDispatch();
@@ -23,24 +22,25 @@ const ArtistPage: React.FC = () => {
          try {
             dispatch(setStartLoading());
             const res = await musicApi.fetchArtist(id!);
+            console.log(res.data?.metadata);
+
             setArtistData(res.data?.metadata);
             dispatch(setEndLoading());
          } catch (error) {
-            console.log(error);
+            console.log('error:', error);
             dispatch(setError());
-            navigate('/home', { replace: true });
          }
       };
       fetchArtistData();
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 
-   if (artistData.length <= 0 || loading) {
+   if (loading) {
       return <ArtistLoading />;
    }
 
    if (error) {
-      return 'Error...';
+      return <NotFound />;
    }
 
    return (

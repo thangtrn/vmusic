@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Carousel } from '~/components/Carousel';
+import { Error } from '~/components/LoadingSkeleton';
 import HoneLoading from '~/components/LoadingSkeleton/HoneLoading';
 import { NewRelease } from '~/components/NewRelease';
 import { appSelector } from '~/redux/selector';
@@ -20,7 +21,7 @@ const HomePage = () => {
       return <HoneLoading />;
    }
    if (error) {
-      return 'Error...';
+      return <Error onClick={() => dispatch(fetchHome())} />;
    }
 
    return (

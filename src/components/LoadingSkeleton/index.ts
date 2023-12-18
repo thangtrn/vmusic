@@ -5,3 +5,5 @@ export { default as SearchLoading } from './SearchLoading';
 export { default as AlbumLoading } from './AlbumLoading';
 export { default as ArtistLoading } from './ArtistLoading';
 export { default as ProfileLoading } from './ProfileLoading';
+export { default as Error } from './Error';
+export { default as NotFound } from './NotFound';
