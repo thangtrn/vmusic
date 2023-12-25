@@ -4,8 +4,9 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Button, CustomScrollbar } from '../Commons';
 import CommentItem from './CommentItem';
-import { currentSongSelector, userSelector } from '~/redux/selector';
+import { currentSongSelector, isLoginSelector, userSelector } from '~/redux/selector';
 import { musicApi } from '~/axios';
+import { TOAST_MESSAGE } from '~/utils';
 
 interface CommentModalProps {
    hide: () => any;
@@ -14,6 +15,7 @@ interface CommentModalProps {
 const CommentModal: React.FC<CommentModalProps> = ({ hide }) => {
    const currentSong = useSelector(currentSongSelector);
    const { id: userId } = useSelector(userSelector);
+   const isLogin = useSelector(isLoginSelector);
 
    const [isClose, setIsClose] = useState<boolean>(false);
    const [comments, setComments] = useState<IComment[]>([]);
@@ -40,6 +42,12 @@ const CommentModal: React.FC<CommentModalProps> = ({ hide }) => {
 
    const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
+
+      if (!isLogin) {
+         toast.warning(TOAST_MESSAGE.loginRequired);
+         return;
+      }
+
       if (value.trim().length <= 0) return;
       try {
          await musicApi.createComment({
